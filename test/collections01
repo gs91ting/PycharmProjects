@@ -1,0 +1,76 @@
+'''
+    파이썬에서 제공하는 표준 자료구조: 리스트,튜플,딕셔너리,셋
+    Collections 모듈:
+        deque (양쪽이 열려있는 큐구조)
+        defaultdict
+        Counter
+        namedtuple
+        OrderedDict
+
+    Arrary모듈
+    heapq 모듈 (힘 생성, 힘 내부자료 접근..)
+    bisect module(정렬된 상태로 요소를 추가, 중복값 처리)
+    Queue
+    struct
+    copy
+
+Collection module
+    Counter: 컨테이너에 동일한 값의 자료가 몇개인지를 파악하는데 사용하는 함수
+
+'''
+
+import collections
+
+print(collections.Counter(['aa','bb','dd','aa','cc','ee','aa','aa']))
+print(collections.Counter({"가":3,"나":2,"다":4}))
+print(collections.Counter(a=2,b=4,c=2,e=1))
+
+container = collections.Counter()
+container.update("aabcdeff")
+print(container)
+container.update({'c':2,'f':3}) #c는 2개 f는3개가 추가된다.
+print(container)
+
+# Counter 접근하기
+for n in 'abdfeh':
+    print('%s: %d' %(n,container[n]))
+
+ct = collections.Counter('Hello Python')
+ct['x']=2
+print(ct['x'])
+print(list(ct.elements()))
+
+#most_common() 객체 사용방법
+''' most_common(n): 상위 n개를 시퀀스로 만든다'''
+ct2=collections.Counter()
+with open('test.txt','rt') as f:
+    for li in f:
+        ct2.update(li.lower())
+
+for item, cnt in ct2.most_common(5):
+    print('%s:%2d' %(item,cnt))
+
+print(ct2.most_common())
+
+# Counter객체는 산술/집합 연산이 가능하다.
+ct3= collections.Counter(['a','b','c','b','a'])
+ct4=collections.Counter('baearoplanes') #union함수는 세트중 최대값만 포함
+print(ct3-ct4)
+print(ct3&ct4)
+print(ct3|ct4)
+print(ct3+ct4)
+
+# defaultdict 메서드는 컨데이너를 초기화 만들때 default값을 지정한다.
+
+def default_aa():
+    return 'aa'
+
+dic = collections.defaultdict(default_aa,n1='하이',n2=4)
+
+print(dic)
+print(dic['n1'])
+print(dic['n3'])
+
+
+
+
